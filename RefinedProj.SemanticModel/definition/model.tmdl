@@ -1,0 +1,22 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Data Sales Adidas"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.131.1203.0 (24.07)
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'Data Sales Adidas'
+ref table DateTableTemplate_0b7f56b7-37ba-4961-8971-1a15a37e1d5a
+ref table LocalDateTable_3a85b4cf-1d64-40be-8838-2fa46857bdde
+
+ref cultureInfo en-US
+

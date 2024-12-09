@@ -1,0 +1,138 @@
+table 'Data Sales Adidas'
+	lineageTag: f71349f2-1ea2-4ba7-a9b9-9a0edc59ab9d
+
+	column Retailer
+		dataType: string
+		lineageTag: 38d08deb-fa4d-4a95-8dfe-a35e74e6fe2a
+		summarizeBy: none
+		sourceColumn: Retailer
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Retailer ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 79f68f1d-b410-4a48-a607-c2b9a8538eaa
+		summarizeBy: count
+		sourceColumn: Retailer ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Invoice Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 655ee5f2-ee2d-4134-bfb6-7cac0b8474ae
+		summarizeBy: none
+		sourceColumn: Invoice Date
+
+		variation Variation
+			isDefault
+			relationship: f8372fe8-af41-41bb-ae35-17ffba604f3e
+			defaultHierarchy: LocalDateTable_3a85b4cf-1d64-40be-8838-2fa46857bdde.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Region
+		dataType: string
+		lineageTag: 1ca084d7-9a6d-4eb3-a141-f727eab3f6fa
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: 67a1f97c-3c27-4805-a8b1-633d28310832
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: 4fb8fed7-76a3-4bca-a652-63b148e70a69
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product
+		dataType: string
+		lineageTag: 0186c9ae-104d-4f74-8bfe-104f7702f25b
+		summarizeBy: none
+		sourceColumn: Product
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Price per Unit'
+		dataType: double
+		lineageTag: 61e44fe2-24a8-4c2a-a63c-63182d1e99ac
+		summarizeBy: sum
+		sourceColumn: Price per Unit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Units Sold'
+		dataType: int64
+		formatString: 0
+		lineageTag: a997faaf-78ea-4b15-a596-fedd39735123
+		summarizeBy: sum
+		sourceColumn: Units Sold
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Sales'
+		dataType: double
+		lineageTag: 4ba10b5c-16ff-4743-9048-1fb1e3b29402
+		summarizeBy: sum
+		sourceColumn: Total Sales
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Operating Profit'
+		dataType: double
+		lineageTag: 4ebf7b5b-f861-47cd-a144-81835094f943
+		summarizeBy: sum
+		sourceColumn: Operating Profit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Operating Margin'
+		dataType: double
+		lineageTag: 32e2a3b0-d2eb-4c5c-8863-34e9444751bd
+		summarizeBy: sum
+		sourceColumn: Operating Margin
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Sales Method'
+		dataType: string
+		lineageTag: b42992dc-0913-4989-9609-bee240ae07c0
+		summarizeBy: none
+		sourceColumn: Sales Method
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Data Sales Adidas' = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\delz\PowerBIProProject\PBIBroTraining\Adidas US Sales Datasets.xlsx"), null, true),
+				    #"Data Sales Adidas_Sheet" = Source{[Item="Data Sales Adidas",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Data Sales Adidas_Sheet", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Retailer", type text}, {"Retailer ID", Int64.Type}, {"Invoice Date", type date}, {"Region", type text}, {"State", type text}, {"City", type text}, {"Product", type text}, {"Price per Unit", type number}, {"Units Sold", Int64.Type}, {"Total Sales", type number}, {"Operating Profit", type number}, {"Operating Margin", type number}, {"Sales Method", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

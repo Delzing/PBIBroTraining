@@ -1,0 +1,5 @@
+relationship f8372fe8-af41-41bb-ae35-17ffba604f3e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Data Sales Adidas'.'Invoice Date'
+	toColumn: LocalDateTable_3a85b4cf-1d64-40be-8838-2fa46857bdde.Date
+
